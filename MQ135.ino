@@ -1,8 +1,8 @@
 /* 
- *pines:
+ *Connection pins:
 
 Arduino       MQ-135
-  A0            A0
+   A0            A0
  +5V            VCC
  GND            GND
  
@@ -32,7 +32,7 @@ const int Echo = D4;   //Pin digital 3 para el Echo del sensor 2 = d4
 
 int analogPin = 0;
 
-// Definnir array de leds
+// Define the array of leds
 CRGB leds[NUM_LEDS];
 
 MQ135 gasSensor = MQ135(analogPin);
@@ -61,6 +61,29 @@ void loop() {
   
   float ppm = gasSensor.getPPM();
 
+  if(result <= 955.48 e7  ){
+    for (int i = 0; i < NUM_LEDS; i++) {
+      leds[i] = CRGB::Yellow;
+      FastLED.show();
+      delay(50);
+    }
+    for (int i = 0; i < NUM_LEDS; i++) {
+      leds[8 - i] = CRGB::Black;
+      FastLED.show();
+      delay(50);
+    }
+  }else{
+    for (int i = 0; i < NUM_LEDS; i++) {
+      leds[i] = CRGB::Green;
+      FastLED.show();
+      delay(50);
+    }
+    for (int i = 0; i < NUM_LEDS; i++) {
+      leds[8 - i] = CRGB::Black;
+      FastLED.show();
+      delay(50);
+    }
+  }
   
   if(ppm <= 9.46){
     for (int i = 0; i < NUM_LEDS; i++) {
@@ -88,7 +111,7 @@ void loop() {
   
   Serial.print(rzero);
   Serial.print(", ");
-  Serial.print(resultado);
+  Serial.print(result);
   Serial.print(", ");
   Serial.print(ppm);
   Serial.println(" ppm");
